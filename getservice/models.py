@@ -47,8 +47,8 @@ class Position(models.Model):
 
 
 class Employee(models.Model):
-    office = models.ForeignKey(Office, on_delete=models.SET_NULL)
-    position = models.ForeignKey(Position, on_delete=models.SET_NULL)
+    office = models.ForeignKey(Office, on_delete=models.SET_NULL, null=True)
+    position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True)
     fio = models.CharField(max_length=255)
 
     def __str__(self):
@@ -77,10 +77,10 @@ class ServicePosition(models.Model):
 
 
 class Entry(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.SET_NULL)
-    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL)
-    service = models.ForeignKey(Service, on_delete=models.SET_NULL)
-    office = models.ForeignKey(Office, on_delete=models.SET_NULL)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
+    office = models.ForeignKey(Office, on_delete=models.SET_NULL, null=True)
     created_datetime = models.DateTimeField()
 
     def __str__(self):
