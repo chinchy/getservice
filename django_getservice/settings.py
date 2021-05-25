@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'getservice',
     'rest_framework',
     'djoser',
-    'corsheaders'
+    'corsheaders',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Client(models.Model):
@@ -31,7 +32,7 @@ class Company(models.Model):
 class Office(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     address = models.CharField(max_length=255)
-    phone = models.CharField(max_length=11)
+    phone = PhoneNumberField()
     schedule = models.CharField(max_length=255)
 
     def __str__(self):
@@ -48,26 +49,28 @@ class Position(models.Model):
 
 class Employee(models.Model):
     office = models.ForeignKey(Office, on_delete=models.SET_NULL, null=True)
-    position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True)
+    position = models.ManyToManyField(Position)
     fio = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to='employee_photo/', null=True, blank=True)
 
     def __str__(self):
-        return "Работник: {}, должность: {}".format(self.fio, self.position)
+        return "Работник: {}, должность: {}".format(self.fio, self.position.all())
 
 
 class Service(models.Model):
     office = models.ManyToManyField(Office)
     name = models.CharField(max_length=255)
-    duration = models.FloatField()
-    description = models.CharField(max_length=1000)
+    duration = models.FloatField(null=True, blank=True)
+    description = models.CharField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
-        return "Услуга: {} в филиале ".format(self.name, self.office)
+        return "Услуга: {} в филиале {}".format(self.name, self.office.all())
 
 
 class ServicePosition(models.Model):
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    price = models.FloatField(default=0)
 
     class Meta:
         unique_together = (("position", "service"), )
