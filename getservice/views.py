@@ -1,7 +1,15 @@
-from rest_framework import generics
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import *
 from .serializers import *
+
+
+class Logout(APIView):
+    def get(self, request, format=None):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
 
 
 #
@@ -15,11 +23,13 @@ class ClientRetrieveView(generics.RetrieveAPIView):
 class ClientUpdateView(generics.UpdateAPIView):
     queryset = Client.objects.all()
     serializer_class = CreateClientSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class ClientCreateView(generics.CreateAPIView):
     queryset = Client.objects.all()
     serializer_class = CreateClientSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class ClientListView(generics.ListAPIView):
@@ -38,6 +48,7 @@ class CompanyRetrieveView(generics.RetrieveAPIView):
 class CompanyUpdateView(generics.UpdateAPIView):
     queryset = Company.objects.all()
     serializer_class = CreateCompanySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 #
@@ -51,11 +62,13 @@ class OfficeRetrieveView(generics.RetrieveAPIView):
 class OfficeUpdateView(generics.UpdateAPIView):
     queryset = Office.objects.all()
     serializer_class = CreateOfficeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class OfficeCreateView(generics.CreateAPIView):
     queryset = Office.objects.all()
     serializer_class = CreateOfficeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class OfficeListView(generics.ListAPIView):
@@ -85,11 +98,13 @@ class PositionRetrieveView(generics.RetrieveAPIView):
 class PositionUpdateView(generics.UpdateAPIView):
     queryset = Position.objects.all()
     serializer_class = CreatePositionSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class PositionCreateView(generics.CreateAPIView):
     queryset = Position.objects.all()
     serializer_class = CreatePositionSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class PositionListView(generics.ListAPIView):
@@ -119,11 +134,13 @@ class EmployeeRetrieveView(generics.RetrieveAPIView):
 class EmployeeUpdateView(generics.UpdateAPIView):
     queryset = Employee.objects.all()
     serializer_class = CreateEmployeeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class EmployeeCreateView(generics.CreateAPIView):
     queryset = Employee.objects.all()
     serializer_class = CreateEmployeeSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class EmployeeListView(generics.ListAPIView):
@@ -157,11 +174,13 @@ class ServiceRetrieveView(generics.RetrieveAPIView):
 class ServiceUpdateView(generics.UpdateAPIView):
     queryset = Service.objects.all()
     serializer_class = CreateServiceSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class ServiceCreateView(generics.CreateAPIView):
     queryset = Service.objects.all()
     serializer_class = CreateServiceSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class ServiceListView(generics.ListAPIView):
@@ -191,11 +210,13 @@ class PriceRetrieveView(generics.RetrieveAPIView):
 class PriceUpdateView(generics.UpdateAPIView):
     queryset = Price.objects.all()
     serializer_class = CreatePriceSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class PriceCreateView(generics.CreateAPIView):
     queryset = Price.objects.all()
     serializer_class = CreatePriceSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class PriceListView(generics.ListAPIView):
@@ -229,11 +250,13 @@ class EntryRetrieveView(generics.RetrieveAPIView):
 class EntryUpdateView(generics.UpdateAPIView):
     queryset = Entry.objects.all()
     serializer_class = CreateEntrySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class EntryCreateView(generics.CreateAPIView):
     queryset = Entry.objects.all()
     serializer_class = CreateEntrySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class EntryListView(generics.ListAPIView):

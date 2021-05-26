@@ -1,9 +1,13 @@
-from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
 
 from .views import *
 
 urlpatterns = [
+    path('auth/', include('djoser.urls')),
+    path('auth/token', obtain_auth_token, name='token'),
+    path('logout/', Logout.as_view()),
+
     path('clients/<int:pk>', ClientRetrieveView.as_view()),
     path('clients/update/<int:pk>', ClientUpdateView.as_view()),
     path('clients/new', ClientCreateView.as_view()),

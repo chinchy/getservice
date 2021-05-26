@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'getservice',
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
     'corsheaders',
     'phonenumber_field',
@@ -124,6 +125,15 @@ CORS_ALLOW_METHODS = [
     'POST',
     'PUT',
 ]
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+   'DEFAULT_PERMISSION_CLASSES': (
+       ('rest_framework.permissions.AllowAny', )
+   ),
+}
 
 
 # Internationalization
