@@ -5,8 +5,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Client(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='client_photo/')
-    phone = models.CharField(max_length=11)
+    photo = models.ImageField(upload_to='client_photo/', null=True, blank=True)
+    phone = PhoneNumberField(null=True, blank=True)
 
     def __str__(self):
         return "Клиент: {}, телефон: {}".format(self.user, self.phone)
@@ -22,7 +22,7 @@ class Company(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    logo = models.ImageField(upload_to='company_logo/')
+    logo = models.ImageField(upload_to='company_logo/', null=True, blank=True)
     type = models.CharField(choices=COMPANY_TYPE, default='1', max_length=1)
 
     def __str__(self):
@@ -32,8 +32,8 @@ class Company(models.Model):
 class Office(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     address = models.CharField(max_length=255)
-    phone = PhoneNumberField()
-    schedule = models.CharField(max_length=255)
+    phone = PhoneNumberField(null=True, blank=True)
+    schedule = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return "Филиал организации: {}, адрес: {}".format(self.company, self.address)
@@ -67,16 +67,16 @@ class Service(models.Model):
         return "Услуга: {} в филиале {}".format(self.name, self.office.all())
 
 
-class ServicePosition(models.Model):
+class Price(models.Model):
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    price = models.FloatField(default=0)
+    amount = models.FloatField(default=0)
 
     class Meta:
         unique_together = (("position", "service"), )
 
     def __str__(self):
-        return "Услуга по должности: {}, {}".format(self.service, self.position)
+        return "Стоимость {} у {}: {}".format(self.service, self.position, self.amount)
 
 
 class Entry(models.Model):
@@ -84,7 +84,7 @@ class Entry(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
     service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
     office = models.ForeignKey(Office, on_delete=models.SET_NULL, null=True)
-    created_datetime = models.DateTimeField()
+    created_datetime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return "Запись: клиент: {}, работник: {}, услуга: {}, филиал: {}".format(self.client, self.employee,
