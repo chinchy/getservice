@@ -2,12 +2,11 @@
   <div>
     <el-button type="primary" icon="el-icon-plus" style="float: right">Добавить</el-button>
     <el-table :data="tableData">
-        <el-table-column prop="address" label="Адрес">
-        </el-table-column>
-        <el-table-column prop="phone" label="Телефон">
-        </el-table-column>
-        <el-table-column prop="schedule" label="Режим работы">
-        </el-table-column>
+        <el-table-column prop="created_datetime" label="Время и дата"></el-table-column>
+        <el-table-column prop="service" label="Услуга"></el-table-column>
+        <el-table-column prop="client" label="Клиент"></el-table-column>
+        <el-table-column prop="employee" label="Сотрудник"></el-table-column>
+        <el-table-column prop="office" label="Филиал"></el-table-column>
         <el-table-column
             label="Действия"
             width="200">
@@ -30,13 +29,15 @@ import axios from "axios";
 
 export default {
   async created() {
-    await axios.get('http://127.0.0.1:7000/api/v1/offices/all?company=2').then(resp => {
+    await axios.get('http://127.0.0.1:7000/api/v1/entries/all').then(resp => {
       this.tableData = []
       resp.data.forEach(element => this.tableData.push(
           {
-            address: element.address,
-            phone: element.phone,
-            schedule: element.schedule
+            created_datetime: new Date(Date.parse(element.created_datetime)).toLocaleString("ru"),
+            service: element.service.name,
+            client: element.client.phone,
+            employee: element.employee.fio,
+            office: element.office.address
           }
       ))
     });

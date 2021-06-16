@@ -2,12 +2,9 @@
   <div>
     <el-button type="primary" icon="el-icon-plus" style="float: right">Добавить</el-button>
     <el-table :data="tableData">
-        <el-table-column prop="address" label="Адрес">
-        </el-table-column>
-        <el-table-column prop="phone" label="Телефон">
-        </el-table-column>
-        <el-table-column prop="schedule" label="Режим работы">
-        </el-table-column>
+        <el-table-column prop="service" label="Услуга"></el-table-column>
+        <el-table-column prop="position" label="Должность"></el-table-column>
+        <el-table-column prop="amount" label="Стоимость"></el-table-column>
         <el-table-column
             label="Действия"
             width="200">
@@ -30,13 +27,13 @@ import axios from "axios";
 
 export default {
   async created() {
-    await axios.get('http://127.0.0.1:7000/api/v1/offices/all?company=2').then(resp => {
+    await axios.get('http://127.0.0.1:7000/api/v1/prices/all').then(resp => {
       this.tableData = []
       resp.data.forEach(element => this.tableData.push(
           {
-            address: element.address,
-            phone: element.phone,
-            schedule: element.schedule
+            service: element.service.name,
+            position: element.position.name,
+            amount: element.amount + " руб."
           }
       ))
     });

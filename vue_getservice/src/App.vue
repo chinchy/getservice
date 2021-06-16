@@ -11,7 +11,7 @@
             <i class="el-icon-s-home"></i>
             <span>Домашняя страница</span>
           </el-menu-item>
-          <el-menu-item index="2">
+          <el-menu-item index="/entries/">
             <i class="el-icon-date"></i>
             <span>Календарь записей</span>
           </el-menu-item>
@@ -19,27 +19,27 @@
             <i class="el-icon-office-building"></i>
             <span>Филиалы</span>
           </el-menu-item>
-          <el-menu-item index="4">
+          <el-menu-item index="/employees/">
             <i class="el-icon-s-custom"></i>
             <span>Сотрудники</span>
           </el-menu-item>
-          <el-menu-item index="5">
+          <el-menu-item index="/services/">
             <i class="el-icon-s-order"></i>
             <span>Услуги</span>
           </el-menu-item>
-          <el-menu-item index="6">
+          <el-menu-item index="/positions/">
             <i class="el-icon-receiving"></i>
             <span>Должности</span>
           </el-menu-item>
-          <el-menu-item index="7">
+          <el-menu-item index="/prices/">
             <i class="el-icon-money"></i>
             <span>Прайс лист</span>
           </el-menu-item>
-          <el-menu-item index="8">
+          <el-menu-item index="/clients/">
             <i class="el-icon-user-solid"></i>
             <span>База клиентов</span>
           </el-menu-item>
-          <el-menu-item index="9">
+          <el-menu-item index="/reports/">
             <i class="el-icon-s-marketing"></i>
             <span>Подготовка отчётности</span>
           </el-menu-item>
@@ -56,9 +56,15 @@
 <!--            </el-dropdown-menu>-->
 <!--          </el-dropdown>-->
           <div id="avatar">
-            <el-avatar size="medium" icon="el-icon-user-solid"></el-avatar>
+<!--            <el-avatar size="medium" icon="el-icon-user-solid"></el-avatar>-->
+<!--            <router-link tag="el-link" style="padding-left: 5px; color: #323c48" to="/auth/signin">-->
+<!--              Вход/Регистрация-->
+<!--            </router-link>-->
+            <el-avatar size="medium"
+                       src="https://i.ibb.co/872PyZn/121512252-348185422962856-1560874474131106048-n.jpg">
+            </el-avatar>
             <router-link tag="el-link" style="padding-left: 5px; color: #323c48" to="/auth/signin">
-              Вход/Регистрация
+              Абрикос
             </router-link>
           </div>
         </el-header>
